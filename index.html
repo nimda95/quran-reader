@@ -77,6 +77,12 @@
                     document.body.style.filter = 'invert(1)';
                 }
                 localStorage.setItem('filterMode', document.body.style.filter);
+            } else if (e.key === '2') {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                } else {
+                    document.documentElement.requestFullscreen();
+                }
             }
         });
     </script>
