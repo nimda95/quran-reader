@@ -41,7 +41,7 @@
         let pageNumber = parseInt(document.location.href.split('#')[1]);
         let filter = localStorage.getItem('filterMode') || 'invert(0)';
         document.body.style.filter = filter;  
-        if (!pageNumber || isNaNpageNumber) {
+        if (!pageNumber || isNaN(pageNumber)) {
             pageNumber = parseInt(localStorage.getItem('lastViewedQuranPage')) || 1;
             document.location.href = '#' + pageNumber;
             location.reload();
