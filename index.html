@@ -41,7 +41,7 @@
         let pageNumber = parseInt(document.location.href.split('#')[1]);
         let filter = localStorage.getItem('filterMode') || 'invert(0)';
         document.body.style.filter = filter;  
-        if (!pageNumber || isNaN(pageNumber)) {
+        if (!pageNumber || isNaNpageNumber) {
             pageNumber = parseInt(localStorage.getItem('lastViewedQuranPage')) || 1;
             document.location.href = '#' + pageNumber;
             location.reload();
@@ -60,18 +60,22 @@
             console.log(e.key);
             if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
                 if (pageNumber <= LAST_PAGE) {
-                    document.location.href = '#' + (pageNumber + 1);
-                    img.src = BASE_URL.replace('__index__', (pageNumber + 1).toString().padStart(3, '0'));
-                    // location.reload();
+                    pageNumber++;
+                    document.location.href = '#' + pageNumber;
+                    img.src = BASE_URL.replace('__index__', pageNumber.toString().padStart(3, '0'));
+                } else {
+                    pageNumber = LAST_PAGE;
                 }
-                localStorage.setItem('lastViewedQuranPage', pageNumber + 1);
+                localStorage.setItem('lastViewedQuranPage', pageNumber);
             } else if (e.key === 'ArrowLeft' || e.key === 'Backspace' || e.key === 'PageUp') {
-                if (pageNumber > 1) {
-                    document.location.href = '#' + (pageNumber - 1);
-                    img.src = BASE_URL.replace('__index__', (pageNumber - 1).toString().padStart(3, '0'));
-                    // location.reload();
+                pageNumber--;
+                if (pageNumber >= 0) {
+                    document.location.href = '#' + pageNumber;
+                    img.src = BASE_URL.replace('__index__', pageNumber.toString().padStart(3, '0'));
+                }else{
+                    pageNumber=1;
                 }
-                localStorage.setItem('lastViewedQuranPage', pageNumber - 1);
+                localStorage.setItem('lastViewedQuranPage', pageNumber);
             } else if (e.key === 'b' || e.key === '1') {
                 if (document.body.style.filter === 'invert(1)') {
                     document.body.style.filter = 'invert(0)';
